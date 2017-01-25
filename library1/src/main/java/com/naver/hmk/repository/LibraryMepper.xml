@@ -3,6 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="LibraryMapper">
-
+	<insert id="memberAdd"
+			parameterType="com.naver.hmk.domain.Member">
+		insert into member(
+				member_name,
+				library_no,
+				member_level,
+				member_address,
+				member_phone)
+			values(
+				 #{member_name},
+				 #{library.library_no},
+				 #{member_leve},
+				 #{member_address},
+				 #{member_phone}
+				 )
+			
+	</insert>
 
 </mapper>

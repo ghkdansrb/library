@@ -1,5 +1,7 @@
 package com.naver.hmk.service;
 
-public interface LibraryService {
+import com.naver.hmk.domain.Member;
 
+public interface LibraryService {
+	public int MemberAdd(Member member);
 }

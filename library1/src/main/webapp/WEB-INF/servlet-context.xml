@@ -21,7 +21,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<context:component-scan base-package="com.ksmart.hmk" />
+	<context:component-scan base-package="com.naver.hmk" />
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -36,7 +36,7 @@
         <!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
         <property name="mapperLocations">
             <list>
-                <value>classpath:com/naver/hmk/service/LibraryMepper.xml</value>
+                <value>classpath:com/naver/hmk/repository/LibraryMepper.xml</value>
             </list>
         </property>
     </bean>
