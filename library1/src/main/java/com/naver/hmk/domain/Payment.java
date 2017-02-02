@@ -1,44 +1,46 @@
 package com.naver.hmk.domain;
 
 public class Payment {
-	private int payment_no;
-	private Member member;
-	private Rental rental;
-	private int payment_price;
-	private String payment_state;
-	public int getPayment_no() {
-		return payment_no;
+	private int paymentNo;
+	private int memberNo;
+	private int rentalNo;
+	private int paymentPrice;
+	private String paymentState;
+	public int getPaymentNo() {
+		return paymentNo;
 	}
-	public void setPayment_no(int payment_no) {
-		this.payment_no = payment_no;
+	public void setPaymentNo(int paymentNo) {
+		this.paymentNo = paymentNo;
 	}
-	public Member getMember() {
-		return member;
+	public int getMemberNo() {
+		return memberNo;
 	}
-	public void setMember(Member member) {
-		this.member = member;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
-	public Rental getRental() {
-		return rental;
+	public int getRentalNo() {
+		return rentalNo;
 	}
-	public void setRental(Rental rental) {
-		this.rental = rental;
+	public void setRentalNo(int rentalNo) {
+		this.rentalNo = rentalNo;
 	}
-	public int getPayment_price() {
-		return payment_price;
+	public int getPaymentPrice() {
+		return paymentPrice;
 	}
-	public void setPayment_price(int payment_price) {
-		this.payment_price = payment_price;
+	public void setPaymentPrice(int paymentPrice) {
+		this.paymentPrice = paymentPrice;
 	}
-	public String getPayment_state() {
-		return payment_state;
+	public String getPaymentState() {
+		return paymentState;
 	}
-	public void setPayment_state(String payment_state) {
-		this.payment_state = payment_state;
+	public void setPaymentState(String paymentState) {
+		this.paymentState = paymentState;
 	}
 	@Override
 	public String toString() {
-		return "Payment [payment_no=" + payment_no + ", member=" + member + ", rental=" + rental + ", payment_price="
-				+ payment_price + ", payment_state=" + payment_state + "]";
+		return "Payment [paymentNo=" + paymentNo + ", memberNo=" + memberNo + ", rentalNo=" + rentalNo
+				+ ", paymentPrice=" + paymentPrice + ", paymentState=" + paymentState + "]";
 	}
+
+
 }

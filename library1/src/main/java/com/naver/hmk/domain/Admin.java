@@ -1,44 +1,54 @@
 package com.naver.hmk.domain;
 
-public class Admin {
-	private int admin_no;
-	private String admin_id;
-	private String admin_pw;
-	private String admin_name;
-	private Library library;
-	public int getAdmin_no() {
-		return admin_no;
+import java.io.Serializable;
+
+public class Admin implements Serializable{
+	private int adminNo;
+	private String adminId;
+	private String adminPw;
+	private String adminName;
+	private int libraryNo;
+	private String libraryName;
+	public int getAdminNo() {
+		return adminNo;
 	}
-	public void setAdmin_no(int admin_no) {
-		this.admin_no = admin_no;
+	public void setAdminNo(int adminNo) {
+		this.adminNo = adminNo;
 	}
-	public String getAdmin_id() {
-		return admin_id;
+	public String getAdminId() {
+		return adminId;
 	}
-	public void setAdmin_id(String admin_id) {
-		this.admin_id = admin_id;
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
 	}
-	public String getAdmin_pw() {
-		return admin_pw;
+	public String getAdminPw() {
+		return adminPw;
 	}
-	public void setAdmin_pw(String admin_pw) {
-		this.admin_pw = admin_pw;
+	public void setAdminPw(String adminPw) {
+		this.adminPw = adminPw;
 	}
-	public String getAdmin_name() {
-		return admin_name;
+	public String getAdminName() {
+		return adminName;
 	}
-	public void setAdmin_name(String admin_name) {
-		this.admin_name = admin_name;
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
 	}
-	public Library getLibrary() {
-		return library;
+	public int getLibraryNo() {
+		return libraryNo;
 	}
-	public void setLibrary(Library library) {
-		this.library = library;
+	public void setLibraryNo(int libraryNo) {
+		this.libraryNo = libraryNo;
+	}
+	public String getLibraryName() {
+		return libraryName;
+	}
+	public void setLibraryName(String libraryName) {
+		this.libraryName = libraryName;
 	}
 	@Override
 	public String toString() {
-		return "Admin [admin_no=" + admin_no + ", admin_id=" + admin_id + ", admin_pw=" + admin_pw + ", admin_name="
-				+ admin_name + ", library=" + library + "]";
+		return "Admin [adminNo=" + adminNo + ", adminId=" + adminId + ", adminPw=" + adminPw + ", adminName="
+				+ adminName + ", libraryNo=" + libraryNo + ", libraryName=" + libraryName + "]";
 	}
+	
 }

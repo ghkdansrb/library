@@ -1,82 +1,100 @@
 package com.naver.hmk.domain;
 
 public class Book {
-	private int book_no;
-	private Library library;
-	private Category category; 
-	private String book_name;
-	private String book_writer;
-	private String book_publisher;
-	private String book_state;
-	private int book_totalrental;
-	private int book_rentalstate;
-	private String book_startday;
-	public int getBook_no() {
-		return book_no;
+	private int bookNo;
+	private int libraryNo;
+	private int categoryNo;
+	private String categoryName;
+	private String bookName;
+	private String bookWriter;
+	private String bookPublisher;
+	private String bookState;
+	private int bookTotalrental;
+	private int bookRentalstate;
+	private String bookStartday;
+	private String bookDate;
+	public String getBookDate() {
+		return bookDate;
 	}
-	public void setBook_no(int book_no) {
-		this.book_no = book_no;
+	public void setBookDate(String bookDate) {
+		this.bookDate = bookDate;
 	}
-	public Library getLibrary() {
-		return library;
+	public int getBookNo() {
+		return bookNo;
 	}
-	public void setLibrary(Library library) {
-		this.library = library;
+	public void setBookNo(int bookNo) {
+		this.bookNo = bookNo;
 	}
-	public Category getCategory() {
-		return category;
+	public int getLibraryNo() {
+		return libraryNo;
 	}
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setLibraryNo(int libraryNo) {
+		this.libraryNo = libraryNo;
 	}
-	public String getBook_name() {
-		return book_name;
+	public int getCategoryNo() {
+		return categoryNo;
 	}
-	public void setBook_name(String book_name) {
-		this.book_name = book_name;
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
 	}
-	public String getBook_writer() {
-		return book_writer;
+	public String getBookName() {
+		return bookName;
 	}
-	public void setBook_writer(String book_writer) {
-		this.book_writer = book_writer;
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
 	}
-	public String getBook_publisher() {
-		return book_publisher;
+	public String getBookWriter() {
+		return bookWriter;
 	}
-	public void setBook_publisher(String book_publisher) {
-		this.book_publisher = book_publisher;
+	public void setBookWriter(String bookWriter) {
+		this.bookWriter = bookWriter;
 	}
-	public String getBook_state() {
-		return book_state;
+	public String getBookPublisher() {
+		return bookPublisher;
 	}
-	public void setBook_state(String book_state) {
-		this.book_state = book_state;
+	public void setBookPublisher(String bookPublisher) {
+		this.bookPublisher = bookPublisher;
 	}
-	public int getBook_totalrental() {
-		return book_totalrental;
+	public String getBookState() {
+		return bookState;
 	}
-	public void setBook_totalrental(int book_totalrental) {
-		this.book_totalrental = book_totalrental;
+	public void setBookState(String bookState) {
+		this.bookState = bookState;
 	}
-	public int getBook_rentalstate() {
-		return book_rentalstate;
+	public int getBookTotalrental() {
+		return bookTotalrental;
 	}
-	public void setBook_rentalstate(int book_rentalstate) {
-		this.book_rentalstate = book_rentalstate;
+	public void setBookTotalrental(int bookTotalrental) {
+		this.bookTotalrental = bookTotalrental;
 	}
-	public String getBook_startday() {
-		return book_startday;
+	public int getBookRentalstate() {
+		return bookRentalstate;
 	}
-	public void setBook_startday(String book_startday) {
-		this.book_startday = book_startday;
+	public void setBookRentalstate(int bookRentalstate) {
+		this.bookRentalstate = bookRentalstate;
+	}
+	public String getBookStartday() {
+		return bookStartday;
+	}
+	public void setBookStartday(String bookStartday) {
+		this.bookStartday = bookStartday;
+	}
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	@Override
 	public String toString() {
-		return "Book [book_no=" + book_no + ", library=" + library + ", book_name=" + book_name + ", book_writer="
-				+ book_writer + ", book_publisher=" + book_publisher + ", book_state=" + book_state
-				+ ", book_totalrental=" + book_totalrental + ", book_rentalstate=" + book_rentalstate
-				+ ", book_startday=" + book_startday + "]";
+		return "Book [bookNo=" + bookNo + ", libraryNo=" + libraryNo + ", categoryNo=" + categoryNo + ", categoryName="
+				+ categoryName + ", bookName=" + bookName + ", bookWriter=" + bookWriter + ", bookPublisher="
+				+ bookPublisher + ", bookState=" + bookState + ", bookTotalrental=" + bookTotalrental
+				+ ", bookRentalstate=" + bookRentalstate + ", bookStartday=" + bookStartday + ", bookDate=" + bookDate
+				+ "]";
 	}
+
+	
 	
 }

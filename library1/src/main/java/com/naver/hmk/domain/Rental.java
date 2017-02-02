@@ -1,44 +1,45 @@
 package com.naver.hmk.domain;
 
 public class Rental {
-	private int rental_no;
-	private Member member;
-	private Book book;
-	private int rental_startday;
-	private int rental_endday;
-	public int getRental_no() {
-		return rental_no;
+	private int rentalNo;
+	private int memberNo;
+	private int bookNo;
+	private int rentalStartday;
+	private int rentalEndday;
+	public int getRentalNo() {
+		return rentalNo;
 	}
-	public void setRental_no(int rental_no) {
-		this.rental_no = rental_no;
+	public void setRentalNo(int rentalNo) {
+		this.rentalNo = rentalNo;
 	}
-	public Member getMember() {
-		return member;
+	public int getMemberNo() {
+		return memberNo;
 	}
-	public void setMember(Member member) {
-		this.member = member;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
-	public Book getBook() {
-		return book;
+	public int getBookNo() {
+		return bookNo;
 	}
-	public void setBook(Book book) {
-		this.book = book;
+	public void setBookNo(int bookNo) {
+		this.bookNo = bookNo;
 	}
-	public int getRental_startday() {
-		return rental_startday;
+	public int getRentalStartday() {
+		return rentalStartday;
 	}
-	public void setRental_startday(int rental_startday) {
-		this.rental_startday = rental_startday;
+	public void setRentalStartday(int rentalStartday) {
+		this.rentalStartday = rentalStartday;
 	}
-	public int getRental_endday() {
-		return rental_endday;
+	public int getRentalEndday() {
+		return rentalEndday;
 	}
-	public void setRental_endday(int rental_endday) {
-		this.rental_endday = rental_endday;
+	public void setRentalEndday(int rentalEndday) {
+		this.rentalEndday = rentalEndday;
 	}
 	@Override
 	public String toString() {
-		return "Rental [rental_no=" + rental_no + ", member=" + member + ", book=" + book + ", rental_startday="
-				+ rental_startday + ", rental_endday=" + rental_endday + "]";
+		return "Rental [rentalNo=" + rentalNo + ", memberNo=" + memberNo + ", bookNo=" + bookNo + ", rentalStartday="
+				+ rentalStartday + ", rentalEndday=" + rentalEndday + "]";
 	}
+	
 }

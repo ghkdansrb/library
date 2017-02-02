@@ -3,6 +3,101 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="LibraryMapper">
+	
+		<select id="selectOneBook"
+				parameterType="int"
+				resultType="com.naver.hmk.domain.Book">
+		SELECT 
+			b.book_no,
+			b.book_name,
+			c.category_name,
+			b.book_writer,
+			b.book_publisher,
+			b.book_startday,
+			b.book_totalrental,
+			b.book_state,
+			b.book_rentalstate,
+			b.book_date
+		FROM book b
+		JOIN category c
+		ON b.category_no = c.category_no 
+		WHERE 
+			book_no=#{bookNo}	
+				
+		</select>	
+		
+		<select id="selectBookListPerPage"
+			parameterType="Map"
+			resultType="com.naver.hmk.domain.Book">
+		SELECT
+			book_no,
+			book_name,
+			book_publisher,
+			book_rentalstate,
+			book_date
+		FROM book
+			ORDER BY book_date DESC
+			LIMIT #{beginRow},#{pagePerRow}
+	</select>
+	
+	<select id="selectTotalBookCount"
+			resultType="int">
+			SELECT
+				COUNT(*)
+			FROM book
+	</select>
+	
+	<select id="selectMemberListPerPage"
+			parameterType="Map"
+			resultType="com.naver.hmk.domain.Member">
+		SELECT
+			member_no,
+			library_no,
+			book_name,
+			book_writer,
+			book_publisher,
+			category_no
+			book_date
+		FROM member
+			ORDER BY member_date DESC
+			LIMIT #{beginRow},#{pagePerRow}
+	</select>
+	
+	<select id="selectTotalMemberCount"
+			resultType="int">
+			SELECT
+				COUNT(*)
+			FROM member
+	</select>
+	
+	<select id="categoryList"
+			resultType="com.naver.hmk.domain.Category">
+		SELECT 
+			category_no,
+			category_name
+		FROM category
+	</select>
+	
+	<insert id="bookAdd"
+			parameterType="com.naver.hmk.domain.Book">
+		insert into book(
+			library_no,
+			book_name,
+			book_writer,
+			book_publisher,
+			category_no,
+			book_date
+			)
+		values(
+			#{libraryNo},
+			#{bookName},
+			#{bookWriter},
+			#{bookPublisher},
+			#{categoryNo},
+			now()				
+				)
+	</insert>
+	
 	<insert id="memberAdd"
 			parameterType="com.naver.hmk.domain.Member">
 		insert into member(
@@ -10,15 +105,37 @@
 				library_no,
 				member_level,
 				member_address,
-				member_phone)
+				member_phone,
+				member_date
+				)
 			values(
-				 #{member_name},
-				 #{library.library_no},
-				 #{member_leve},
-				 #{member_address},
-				 #{member_phone}
+				 #{memberName},
+				 #{libraryNo},
+				 #{memberLevel},
+				 #{memberAddr},
+				 #{memberPhone},
+				 now()
 				 )
 			
 	</insert>
+	
+	<select id="loginCheck" parameterType="Map" resultType="com.naver.hmk.domain.Admin">
+		SELECT
+			a.admin_id,
+			a.admin_name,
+			a.library_no,
+			l.library_name
+		From admin a JOIN library l
+		ON a.library_no = l.library_no
+		WHERE a.admin_id = #{id} AND a.admin_pw = #{password}	
+	</select>
+	
+	<select id="localList" resultType="com.naver.hmk.domain.Local">
+		SELECT 
+			local_no,
+			local_name
+		FROM local
+	
+	</select>
 
 </mapper>

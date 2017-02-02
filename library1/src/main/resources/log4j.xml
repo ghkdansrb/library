@@ -12,6 +12,11 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.naver.hmk">
+		<level value="debug" />
+	</logger>
+	
+	<!-- Application Loggers -->
+	<logger name="com.naver.hmk">
 		<level value="info" />
 	</logger>
 	

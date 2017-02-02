@@ -26,21 +26,21 @@
         	<br>
         	<h1>도서정보</h1>
         	<div>책이름</div>
-        	<input type="text" class="form-control" name="bookName">
+        	<div><input type="text" class="form-control" name="bookName"></div>
         	<div>출판사</div>
-        	<input type="text" class="form-control" name="bookPulisher">
+        	<div><input type="text" class="form-control" name="bookPulisher"></div>
         	<h1>회원정보</h1>
         	<div>회원이름</div>
-        	<input type="text" class="form-control" name="memberName">
+        	<div><input type="text" class="form-control" name="memberName"></div>
         	<div>회원주소</div>
-        	<input type="text" class="form-control" name="memberAddr">
+        	<div><input type="text" class="form-control" name="memberAddr"></div>
         	<div>회원전화번호</div>
-        	<input type="text" class="form-control" name="memberPhone">
+        	<div><input type="text" class="form-control" name="memberPhone"></div>
 			<h2>대여일자</h2>
 			<p>대여시작일
-			<input type="date" name="rentalStart">
+			<div><input type="date" name="rentalStart"></div>
 			<p>대여종료일
-			<input type="date" name="rentalEnd">
+			<div><input type="date" name="rentalEnd"></div>
 
 	<div class="container">
         <table class="table" border="1">
@@ -53,25 +53,21 @@
         	</tr>
 
         	<tr>
-        		<td>1</td>
-        		<td>난중일기</td>
-        		<td>2017-01-21</td>
-        		<td>2017-01-31</td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
         	</tr>
 
-          	<tr>
-        		<td>1</td>
-        		<td>동의보감</td>
-        		<td>2017-02-03</td>
-        		<td>2017-03-01</td>
-        	</tr>
 
         </table>
 	</div>
-    <div align="center">
-    	<button>대여등록</button>
+    
+	    <div align="center">
+	    	<button>대여등록</button>
+	    </div>
     </div>
-    </div>
+    
     <div class="w3-third w3-container">
 
     </div>

@@ -1,52 +1,61 @@
 package com.naver.hmk.domain;
 
 public class Member {
-	private int member_no;
-	private Library library;
-	private String member_name;
-	private String member_level;
-	private String member_address;
-	private String member_phone;
-	public int getMember_no() {
-		return member_no;
+	private int memberNo;
+	private int libraryNo;
+	private String memberName;
+	private String memberLevel;
+	private String memberAddress;
+	private String memberPhone;
+	private String memberDate;
+	public int getMemberNo() {
+		return memberNo;
 	}
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
-	public Library getLibrary() {
-		return library;
+	public int getLibraryNo() {
+		return libraryNo;
 	}
-	public void setLibrary(Library library) {
-		this.library = library;
+	public void setLibraryNo(int libraryNo) {
+		this.libraryNo = libraryNo;
 	}
-	public String getMember_name() {
-		return member_name;
+	public String getMemberName() {
+		return memberName;
 	}
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
-	public String getMember_level() {
-		return member_level;
+	public String getMemberLevel() {
+		return memberLevel;
 	}
-	public void setMember_level(String member_level) {
-		this.member_level = member_level;
+	public void setMemberLevel(String memberLevel) {
+		this.memberLevel = memberLevel;
 	}
-	public String getMember_address() {
-		return member_address;
+	public String getMemberAddr() {
+		return memberAddress;
 	}
-	public void setMember_address(String member_address) {
-		this.member_address = member_address;
+	public void setMemberAddr(String memberAddr) {
+		this.memberAddress = memberAddr;
 	}
-	public String getMember_phone() {
-		return member_phone;
+	public String getMemberPhone() {
+		return memberPhone;
 	}
-	public void setMember_phone(String member_phone) {
-		this.member_phone = member_phone;
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
+	}
+	public String getMemberDate() {
+		return memberDate;
+	}
+	public void setMemberDate(String memberDate) {
+		this.memberDate = memberDate;
 	}
 	@Override
 	public String toString() {
-		return "Member [member_no=" + member_no + ", library=" + library + ", member_name=" + member_name
-				+ ", member_level=" + member_level + ", member_address=" + member_address + ", member_phone="
-				+ member_phone + "]";
+		return "Member [memberNo=" + memberNo + ", libraryNo=" + libraryNo + ", memberName=" + memberName
+				+ ", memberLevel=" + memberLevel + ", memberAddr=" + memberAddress + ", memberPhone=" + memberPhone
+				+ ", memberDate=" + memberDate + "]";
 	}
+	
+		
 }

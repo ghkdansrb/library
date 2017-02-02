@@ -1,22 +1,23 @@
 package com.naver.hmk.domain;
 
 public class Category {
-	private int category_no;
-	private String category_name;
-	public int getCategory_no() {
-		return category_no;
+	private int categoryNo;
+	private String categoryName;
+	public int getCategoryNo() {
+		return categoryNo;
 	}
-	public void setCategory_no(int category_no) {
-		this.category_no = category_no;
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
 	}
-	public String getCategory_name() {
-		return category_name;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	@Override
 	public String toString() {
-		return "Category [category_no=" + category_no + ", category_name=" + category_name + "]";
+		return "Category [categoryNo=" + categoryNo + ", categoryName=" + categoryName + "]";
 	}
+	
 }

@@ -8,17 +8,25 @@
   <div class="w3-row w3-padding-64">
     <div class="w3-twothird w3-container">
       <h1 class="w3-text-teal">도서등록 </h1>
-        <form>
-        	<div>도서이름</div>
-        	<input type="text" class="form-control" name="bookName" id=bookName>
-        	<div>저자</div>
-        	<input type="text" class="form-control" name="bookWriter" id="bookWriter">
-        	<div>출판사</div>
-        	<input type="text" class="form-control" name="bookPublisher" id="bookPublisher">
+        <form action="/bookAdd" method="post">
         	<div>카테고리</div>
-        	<input type="text" class="form-control" name="bookCategory" id="bookCategory">
-			<input type="submit" value="등록">
-			<input type="reset" value="취소">
+       		<div>
+   	  			<select name="categoryNo">
+   	  				<c:forEach items="${categoryList}" var="c">
+       				<option value="${c.categoryNo}">${c.categoryName}</option>
+	        		</c:forEach>
+	        	</select>
+       		</div>					
+        	<div>도서이름</div>
+        	<div><input type="text" class="form-control" name="bookName" id=bookName></div>
+        	<div>저자</div>
+        	<div><input type="text" class="form-control" name="bookWriter" id="bookWriter"></div>
+        	<div>출판사</div>
+        	<div><input type="text" class="form-control" name="bookPublisher" id="bookPublisher"></div>
+        	<div>
+        		<input type="submit" value="등록">
+				<input type="reset" value="취소">
+			</div>
         </form>
     </div>
     <div class="w3-third w3-container">

@@ -41,36 +41,37 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Smart Library</a>
+      <a class="navbar-brand" href="home">Smart Library</a>
     </div>
     <ul class="nav navbar-nav">
 
-     <li class="active"><a href="#">Home</a></li>
+     <li class="active"><a href="home">Home</a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원관리 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">회원등록</a></li>
-          <li><a href="#">회원목록</a></li>
+          <li><a href="memberAdd">회원등록</a></li>
+          <li><a href="memberList">회원목록</a></li>
         </ul>
       </li>
 
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">도서관리 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">도서등록</a></li>
-          <li><a href="#">도서목록</a></li>
+          <li><a href="bookAdd">도서등록</a></li>
+          <li><a href="bookList">도서목록</a></li>
         </ul>
       </li>
 
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">회원관리 <span class="caret"></span></a>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">대여/반납 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">회원등록</a></li>
-          <li><a href="#">회원목록</a></li>
+          <li><a href="rental">대여신청</a></li>
+          <li><a href="return">반납신청</a></li>
         </ul>
       </li>
 
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		<li><span style="color:#ffffff">${admin.sessionLibraryName}</span></li>
+		<li><span style="color:#ffffff">${admin.sessionName} 로그인중</span></li>
+		<li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
     </ul>
   </div>
 </nav>

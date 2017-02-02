@@ -1,22 +1,23 @@
 package com.naver.hmk.domain;
 
 public class Local {
-	private int local_no;
-	private String local_name;
-	public int getLocal_no() {
-		return local_no;
+	private int localNo;
+	private String localName;
+	public int getLocalNo() {
+		return localNo;
 	}
-	public void setLocal_no(int local_no) {
-		this.local_no = local_no;
+	public void setLocalNo(int localNo) {
+		this.localNo = localNo;
 	}
-	public String getLocal_name() {
-		return local_name;
+	public String getLocalName() {
+		return localName;
 	}
-	public void setLocal_name(String local_name) {
-		this.local_name = local_name;
+	public void setLocalName(String localName) {
+		this.localName = localName;
 	}
 	@Override
 	public String toString() {
-		return "Local [local_no=" + local_no + ", local_name=" + local_name + "]";
+		return "Local [localNo=" + localNo + ", localName=" + localName + "]";
 	}
+	
 }

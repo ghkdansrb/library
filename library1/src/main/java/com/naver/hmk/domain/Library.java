@@ -1,29 +1,30 @@
 package com.naver.hmk.domain;
 
 public class Library {
-	private int library_no;
-	private String library_name;
-	private Local local;
-	public int getLibrary_no() {
-		return library_no;
+	private int libraryNo;
+	private String libraryName;
+	private int localNo;
+	public int getLibraryNo() {
+		return libraryNo;
 	}
-	public void setLibrary_no(int library_no) {
-		this.library_no = library_no;
+	public void setLibraryNo(int libraryNo) {
+		this.libraryNo = libraryNo;
 	}
-	public String getLibrary_name() {
-		return library_name;
+	public String getLibraryName() {
+		return libraryName;
 	}
-	public void setLibrary_name(String library_name) {
-		this.library_name = library_name;
+	public void setLibraryName(String libraryName) {
+		this.libraryName = libraryName;
 	}
-	public Local getLocal() {
-		return local;
+	public int getLocalNo() {
+		return localNo;
 	}
-	public void setLocal(Local local) {
-		this.local = local;
+	public void setLocalNo(int localNo) {
+		this.localNo = localNo;
 	}
 	@Override
 	public String toString() {
-		return "Library [library_no=" + library_no + ", library_name=" + library_name + ", local=" + local + "]";
+		return "Library [libraryNo=" + libraryNo + ", libraryName=" + libraryName + ", localNo=" + localNo + "]";
 	}
+	
 }
