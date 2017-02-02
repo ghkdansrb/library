@@ -25,6 +25,12 @@ public class LibraryController {
 	@Autowired
 	private LibraryService libraryService;
 	
+	@RequestMapping(value="/bookModify", method=RequestMethod.POST)
+	public String bookUpdate(Book book) {
+		return "redirect:/bookView?bookNo="+book.getBookNo();
+		
+	}
+	
 	@RequestMapping(value="/bookView")
 	public String bookView(Model model, 
 			@RequestParam(value="bookNo") int bookNo){

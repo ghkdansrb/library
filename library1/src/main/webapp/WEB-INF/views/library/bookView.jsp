@@ -6,7 +6,7 @@
 	<div class="w3-row w3-padding-64">
 		<div class="w3-twothird w3-container">
      		 <h1 class="w3-text-teal">도서상세정보</h1>
-
+		<form action="/bookModify" method="post">
 		    <div>no</div>
 		    <div><input type="text" class="form-control" name="bookNo" value='${book.bookNo}' readonly="readonly"></div>
 		    <div>도서이름</div>
@@ -18,19 +18,20 @@
 		    <div>출판사</div>
 		    <div><input type="text" class="form-control" name="bookPulisher" value='${book.bookPublisher}'></div>
 		    <div>최초대여일</div>
-		    <div><input type="text" class="form-control" name="bookStartday" value='${book.bookStartday}'></div>
+		    <div><input type="text" class="form-control" name="bookStartday" value='${book.bookStartday}' readonly="readonly"></div>
 		    <div>총대여횟수</div>
-		    <div><input type="text" class="form-control" name="bookTotalrental" value='${book.bookTotalrental}'></div>
+		    <div><input type="text" class="form-control" name="bookTotalrental" value='${book.bookTotalrental}' readonly="readonly"></div>
 		    <div>대여상태</div>
 		    <div><input type="text" class="form-control" name="bookRentalstate" value='${book.bookRentalstate}'></div>
 		    <div>등록일</div>
-		    <div><input type="text" class="form-control" name="bookDate" value='${book.bookDate}'></div>
+		    <div><input type="text" class="form-control" name="bookDate" value='${book.bookDate}' readonly="readonly"></div>
+		
+		   <div>
+				<input type="submit" value="수정">
+    		</div>
+		</form>
 
-
-    <div>
-        <a href="<c:url value='/bookModify?bookNo=${book.bookNo}'/>">수정</a>
-        <a href="<c:url value='/bookRemove?bookNo=${book.bookNo}'/>">삭제</a>
-    </div>
+ 
     
     <div>
     
