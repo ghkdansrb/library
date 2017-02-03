@@ -12,6 +12,8 @@ import com.naver.hmk.domain.Book;
 import com.naver.hmk.domain.Category;
 import com.naver.hmk.domain.Local;
 import com.naver.hmk.domain.Member;
+import com.naver.hmk.domain.Payment;
+import com.naver.hmk.domain.Rental;
 
 @Repository
 public class LibraryDao{
@@ -47,7 +49,6 @@ public class LibraryDao{
 	//멤버리스트
 	public List<Member> selectMemberListPerPage(Map<String, Integer> map){
 		return sqlSession.selectList(LIBRARY_NS+".selectMemberListPerPage", map);
-		
 	}
 	//북카운트
 	public int selectTotalBookCount(){
@@ -56,12 +57,49 @@ public class LibraryDao{
 	//도서리스트
 	public List<Book> selectBookListPerPage(Map<String, Integer> map){
 		return sqlSession.selectList(LIBRARY_NS+".selectBookListPerPage", map);
-		
 	}
 	//북상세보기
 	public Book selectOneBook(int bookNo){
 		return sqlSession.selectOne(LIBRARY_NS+".selectOneBook",bookNo);
-		
 	}
-
+	//도서수정
+	public int bookUpdate(Book book){
+		return sqlSession.update(LIBRARY_NS+".bookUpdate", book);
+	}
+	//도서삭제
+	public int bookRemove(Book book){
+		return sqlSession.delete(LIBRARY_NS+".bookRemove", book);
+	}
+	//대여를 위한 도서 검색
+	public Book searchBook(int bookNo){
+		return sqlSession.selectOne(LIBRARY_NS+".searchBook", bookNo);
+	}
+	//대여를 위한 회원검색
+	public Member searchMember(int memberNo){
+		return sqlSession.selectOne(LIBRARY_NS+".searchMember", memberNo);
+	}
+	//대여등록
+	public int rentalAdd(Rental rental){
+		return sqlSession.insert(LIBRARY_NS+".rentalAdd", rental);
+	}
+	//대여등록후 대여상태와 토탈카운트 증가
+	public int bookRentalstateUpdate(Book book){
+		return sqlSession.update(LIBRARY_NS+".bookRentalstateUpdate", book);
+	}
+	//총대여횟수를 확인하기
+	public int selectRentalCount(int bookNo){
+		return sqlSession.selectOne(LIBRARY_NS+".selectRentalCount", bookNo);
+	}
+	//결제등록
+	public int paymentInsert(Rental rental){
+		return sqlSession.insert(LIBRARY_NS+".paymentInsert", rental);
+	}
+	//대여검색
+	public Rental searchRental(int bookNo){
+		return sqlSession.selectOne(LIBRARY_NS+".searchRental", bookNo);
+	}
+	//결제금액계산
+	public int totalPrice(Rental rental){
+		return sqlSession.selectOne(LIBRARY_NS+".totalPrice", rental);
+	}
 }

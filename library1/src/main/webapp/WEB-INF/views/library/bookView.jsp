@@ -16,7 +16,7 @@
 		    <div>저자</div>
 		    <div><input type="text" class="form-control" name="bookWriter" value='${book.bookWriter}'></div>
 		    <div>출판사</div>
-		    <div><input type="text" class="form-control" name="bookPulisher" value='${book.bookPublisher}'></div>
+		    <div><input type="text" class="form-control" name="bookPublisher" value='${book.bookPublisher}'></div>
 		    <div>최초대여일</div>
 		    <div><input type="text" class="form-control" name="bookStartday" value='${book.bookStartday}' readonly="readonly"></div>
 		    <div>총대여횟수</div>
@@ -30,6 +30,7 @@
 				<input type="submit" value="수정">
     		</div>
 		</form>
+		<a href="<c:url value='/bookRemove?bookNo=${book.bookNo}'/>"><button>삭제</button></a>
 
  
     

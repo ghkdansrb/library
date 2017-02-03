@@ -32,11 +32,11 @@ public class Member {
 	public void setMemberLevel(String memberLevel) {
 		this.memberLevel = memberLevel;
 	}
-	public String getMemberAddr() {
+	public String getMemberAddress() {
 		return memberAddress;
 	}
-	public void setMemberAddr(String memberAddr) {
-		this.memberAddress = memberAddr;
+	public void setMemberAddress(String memberAddress) {
+		this.memberAddress = memberAddress;
 	}
 	public String getMemberPhone() {
 		return memberPhone;
@@ -53,7 +53,7 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", libraryNo=" + libraryNo + ", memberName=" + memberName
-				+ ", memberLevel=" + memberLevel + ", memberAddr=" + memberAddress + ", memberPhone=" + memberPhone
+				+ ", memberLevel=" + memberLevel + ", memberAddress=" + memberAddress + ", memberPhone=" + memberPhone
 				+ ", memberDate=" + memberDate + "]";
 	}
 	

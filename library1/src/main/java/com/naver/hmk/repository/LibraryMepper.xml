@@ -3,6 +3,103 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="LibraryMapper">
+		<delete id="rental">
+		
+		</delete>
+		
+		<update id="returnAndPayment">
+			UPDATE payment SET
+				payment_state='결제완료',
+				payment_price=(
+												
+							)				
+			WHERE
+				payment_no=#{test}
+		
+		</update>
+		
+		<update id="bookrentalstateUpdate"
+				parameterType="com.naver.hmk.domain.Book">
+		UPDATE book SET
+			book_rentalstate='대여가능'
+		WHERE
+			book_no=#{bookNo}
+		
+		</update>
+		
+		<update id="rentalstateUpdate"
+				parameterType="com.naver.hmk.domain.Rental">
+		UPDATE rental SET
+			rental_endday=now()
+		WHERE
+			book_no=#{bookNo}
+		
+		</update>
+		
+		<insert id="paymentInsert" 
+				parameterType="com.naver.hmk.domain.Rental">
+		INSERT INTO payment(
+			member_no,
+			rental_no
+			)
+		VALUES(
+			#{memberNo},
+				(
+				SELECT
+					rental_no
+				FROM
+					rental
+				WHERE
+					member_no =#{memberNo}
+					AND
+					book_no = #{bookNo}
+					AND
+					rental_endday is null
+				)
+			)
+		</insert>
+		
+		<select id="selectRentalCount" resultType="int" parameterType="int">
+		SELECT
+			book_totalrental
+		FROM
+			book
+		WHERE
+			book_no=#{bookNo}	
+		</select>
+		
+		<update id="bookRentalstateUpdate"
+				parameterType="com.naver.hmk.domain.Book">
+		UPDATE book SET
+			<if test='bookTotalrental==0'>
+			book_startday=now(),
+			</if>
+			book_totalrental=book_totalrental+1,
+			book_rentalstate='대여중'
+		WHERE
+			book_no=#{bookNo}
+		</update>
+			
+		<insert id="rentalAdd"
+				parameterType="com.naver.hmk.domain.Rental">
+		INSERT INTO rental(
+			member_no,
+			book_no,
+			rental_startday
+			)
+		values(
+			#{memberNo},
+			#{bookNo},
+			now()
+			)
+		</insert>
+		
+		<delete id="bookRemove"
+				parameterType="com.naver.hmk.domain.Book">
+		DELETE FROM book
+		WHERE
+			book_no=#{bookNo}		
+		</delete>
 		
 		<update id="bookUpdate"
 				parameterType="com.naver.hmk.domain.Book">
@@ -34,7 +131,7 @@
 		JOIN category c
 		ON b.category_no = c.category_no 
 		WHERE 
-			book_no=#{bookNo}	
+			book_no=#{bookNo}
 				
 		</select>	
 		
@@ -64,12 +161,11 @@
 			resultType="com.naver.hmk.domain.Member">
 		SELECT
 			member_no,
-			library_no,
-			book_name,
-			book_writer,
-			book_publisher,
-			category_no
-			book_date
+			member_name,
+			member_level,
+			member_Address,
+			member_Phone,
+			member_date
 		FROM member
 			ORDER BY member_date DESC
 			LIMIT #{beginRow},#{pagePerRow}
@@ -148,6 +244,66 @@
 			local_name
 		FROM local
 	
+	</select>
+	
+	<select id="searchBook" parameterType="int" resultType="com.naver.hmk.domain.Book">
+		SELECT
+			book_no,
+			book_name,
+			book_publisher,
+			book_rentalstate
+		FROM
+			book
+		WHERE
+			book_no = #{bookNo}
+	</select>
+	
+	<select id="searchMember" parameterType="int" resultType="com.naver.hmk.domain.Member">
+		SELECT
+			member_no,
+			member_name,
+			member_address,
+			member_phone
+		FROM
+			member
+		WHERE 
+			member_no = #{memberNo}
+	</select>
+	
+	<select id="searchRental" parameterType="int" resultType="com.naver.hmk.domain.Rental">
+		SELECT
+			rental_no,
+			member_no,
+			book_no,
+			rental_startday,
+			rental_endday
+		FROM
+			rental
+		WHERE 
+			book_no = #{bookNo}
+		AND
+			rental_endday is null
+	</select>
+	
+	<select id="totalPrice" parameterType="com.naver.hmk.domain.Rental" resultType="int">
+		SELECT (
+					(
+					SELECT price_value
+					FROM price 
+					WHERE member_level = ( 
+											SELECT member_level 
+											FROM member 
+											WHERE member_no=#{memberNo} 
+										) 
+						) 
+			      		 * 
+		       		(
+			       SELECT DATEDIFF(now(), rental_startday)  
+			       FROM rental
+			       WHERE rental_no=#{rentalNo}
+			       )
+			   )
+
 	</select>
 
 </mapper>

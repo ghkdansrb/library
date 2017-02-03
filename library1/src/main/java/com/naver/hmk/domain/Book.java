@@ -10,7 +10,7 @@ public class Book {
 	private String bookPublisher;
 	private String bookState;
 	private int bookTotalrental;
-	private int bookRentalstate;
+	private String bookRentalstate;
 	private String bookStartday;
 	private String bookDate;
 	public String getBookDate() {
@@ -67,10 +67,10 @@ public class Book {
 	public void setBookTotalrental(int bookTotalrental) {
 		this.bookTotalrental = bookTotalrental;
 	}
-	public int getBookRentalstate() {
+	public String getBookRentalstate() {
 		return bookRentalstate;
 	}
-	public void setBookRentalstate(int bookRentalstate) {
+	public void setBookRentalstate(String bookRentalstate) {
 		this.bookRentalstate = bookRentalstate;
 	}
 	public String getBookStartday() {

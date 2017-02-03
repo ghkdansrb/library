@@ -6,12 +6,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.naver.hmk.domain.Admin;
 import com.naver.hmk.domain.Book;
 import com.naver.hmk.domain.Category;
 import com.naver.hmk.domain.Local;
 import com.naver.hmk.domain.Member;
+import com.naver.hmk.domain.Payment;
+import com.naver.hmk.domain.Rental;
 import com.naver.hmk.repository.LibraryDao;
 
 @Service
@@ -102,5 +105,72 @@ public class LibraryService{
 			return libraryDao.selectOneBook(bookNo);
 			
 		}
-	
+	// 도서수정하기
+		public int bookUpdate(Book book){
+			return libraryDao.bookUpdate(book);
+		}
+	// 도서삭제하기
+		public int bookRemove(Book book) {
+			return libraryDao.bookRemove(book);
+		}
+		
+	//대여를 위한 도서 검색
+		public Book searchBook(int bookNo){
+			return libraryDao.searchBook(bookNo);
+		}
+	//대여를 위한 회원검색
+		public Member searchMember(int memberNo){
+			return libraryDao.searchMember(memberNo);
+		}
+		
+
+	//대여등록
+		@Transactional
+		public int rentalAdd(Rental rental){
+			int paymentInsert= 0;
+			//대여테이블에 등록
+			int rentalAddResult = libraryDao.rentalAdd(rental);
+			//만약 대여테이블에 등록이 성공하면
+			if(rentalAddResult>0){
+				//해당도서의 totalCount를 가져온다
+				int selectRentalCount = libraryDao.selectRentalCount(rental.getBookNo());
+				//book객체를 생성하고
+				Book book = new Book();
+				//bookNo와 totalcount(아까 select한 totalCount)를 객체에 담는다.
+				book.setBookNo(rental.getBookNo());
+				book.setBookTotalrental(selectRentalCount);
+				//도서상태를 업데이트
+				int updateResult = libraryDao.bookRentalstateUpdate(book);
+				//만약에 도서업데이트가 성공하면
+				if(updateResult >0){
+					//결제를 등록
+					paymentInsert = libraryDao.paymentInsert(rental);
+					//성공했는지 안헀는지 결과값 반환
+					return paymentInsert;
+				}
+			}
+			//실패
+			return paymentInsert;
+		}
+		
+	//대여검색
+	public Map<String, Object> searchRental(int bookNo){
+		Map<String, Object> map = new HashMap<String, Object>();
+		//도서 검색
+		Book book = libraryDao.searchBook(bookNo);
+		//대여검색
+		Rental rental = libraryDao.searchRental(bookNo);
+		//회원검색
+		Member member = libraryDao.searchMember(rental.getMemberNo());
+		//결제금액검색
+		int totalPrice = libraryDao.totalPrice(rental);
+		map.put("book", book);
+		map.put("rental", rental);
+		map.put("member", member);
+		map.put("totalPrice", totalPrice);
+		return map;
+	}
+		
+
+		
 }

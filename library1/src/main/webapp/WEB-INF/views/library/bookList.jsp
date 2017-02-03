@@ -25,7 +25,7 @@
                     <td>${b.bookNo}</td>
                     <td><a href="<%=request.getContextPath()%>/bookView?bookNo=${b.bookNo}">${b.bookName}</a></td>
                     <td>${b.bookPublisher}</td>
-                    <td>${b.bookState}</td>
+                    <td>${b.bookRentalstate}</td>
                     <td>${b.bookDate}</td>
                 </tr>
             </c:forEach>

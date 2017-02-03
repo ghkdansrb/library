@@ -62,7 +62,7 @@
 
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">대여/반납 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="rental">대여신청</a></li>
+          <li><a href="rentalAdd">대여신청</a></li>
           <li><a href="return">반납신청</a></li>
         </ul>
       </li>

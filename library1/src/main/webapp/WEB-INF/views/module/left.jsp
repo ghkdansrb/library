@@ -11,9 +11,9 @@
         <li><a href="memberList">회원목록</a></li>
         <h4>도서관리</h4>
         <li><a href="bookAdd">도서등록</a></li>
-        <li><a href="memberList">도서목록</a></li>
+        <li><a href="bookList">도서목록</a></li>
         <h4>대여/반납</h4>
-        <li><a href="rental">대여신청</a></li>
+        <li><a href="rentalAdd">대여신청</a></li>
         <li><a href="return">반납신청</a></li>
       </ul>
     </nav>

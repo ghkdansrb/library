@@ -13,22 +13,101 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.naver.hmk.domain.Admin;
 import com.naver.hmk.domain.Book;
 import com.naver.hmk.domain.Category;
 import com.naver.hmk.domain.Member;
+import com.naver.hmk.domain.Rental;
 import com.naver.hmk.service.LibraryService;
 
 @Controller
 public class LibraryController {
 	@Autowired
 	private LibraryService libraryService;
+	//반납
+	@RequestMapping(value="/return", method=RequestMethod.GET)
+	public String returns(){
+		return "/library/return";
+	}
+	//반납신청
+	@RequestMapping(value="/return", method=RequestMethod.POST)
+	public String returns(Book book){
+		return "/library/return";
+	}
+	
+	//대여검색 searchRental
+	@RequestMapping(value="/searchRental")
+	public ModelAndView searchRental(
+			@RequestParam(value="bookNo")int bookNo){
+		ModelAndView mv = new ModelAndView("jsonView");
+		Map<String, Object> map = libraryService.searchRental(bookNo);
+		mv.addObject("book", map.get("book"));
+		mv.addObject("rental", map.get("rental"));
+		mv.addObject("member", map.get("member"));
+		mv.addObject("totalPrice", map.get("totalPrice"));
+		return mv;
+	}	
+	
+	
+	//대여등록
+	@RequestMapping(value="/rentalAdd", method=RequestMethod.POST)
+	public String rentalAdd(Rental rental){
+		int result = libraryService.rentalAdd(rental);
+		System.out.println("대여등록확인"+result);
+		if(result>0){
+			return "/library/rentalList";
+		}else{
+			return "/library/rentalAdd";
+		}
+	}
+	@RequestMapping(value="/rentalAdd", method=RequestMethod.GET)
+	public String rentalAdd(){
+		
+		return "/library/rentalAdd";
+	}
+	
+	//대여를위한 도서검색
+	@RequestMapping(value="/searchBook")
+	public ModelAndView searchBook(
+			@RequestParam(value="bookNo") int bookNo){
+		ModelAndView mv = new ModelAndView("jsonView");
+		Book book = libraryService.searchBook(bookNo);
+		mv.addObject("book", book);
+		return mv;
+	}	
+	
+	//대여를 위한 회원검색
+	@RequestMapping(value="/searchMember")
+	public ModelAndView searchMember(
+			@RequestParam(value="memberNo")int memberNo){
+		ModelAndView mv = new ModelAndView("jsonView");
+		Member member = libraryService.searchMember(memberNo);
+		mv.addObject("member", member);
+			return mv;
+	}	
+	
+	
+	
+	@RequestMapping(value="/bookRemove")
+	public String bookRemove(Book book){
+		int result = libraryService.bookRemove(book);
+		if(result == 1){
+			return "redirect:/bookList";
+		}else{
+			return "redirect:/bookView?bookNo="+book.getBookNo();
+		}
+	}
 	
 	@RequestMapping(value="/bookModify", method=RequestMethod.POST)
 	public String bookUpdate(Book book) {
-		return "redirect:/bookView?bookNo="+book.getBookNo();
-		
+		int result = libraryService.bookUpdate(book);
+		if(result == 1){
+			return "redirect:/bookView?bookNo="+book.getBookNo();
+		}else{
+			return "redirect:/bookModify?bookNo="+book.getBookNo();
+		}
 	}
 	
 	@RequestMapping(value="/bookView")
@@ -76,7 +155,7 @@ public class LibraryController {
 	public String memberAdd(Member member){
 		System.out.println("회원들어오냐?"+member);
 		libraryService.MemberAdd(member);
-		return "/library/memberAdd";
+		return "redirect:/memberList";
 	}
 	
 	@RequestMapping(value="/bookAdd", method=RequestMethod.GET)
@@ -93,7 +172,7 @@ public class LibraryController {
 			book.setLibraryNo(sessionLibraryNo);
 			libraryService.BookAdd(book);
 			System.out.println("책들어오냐?"+book);
-		return "/library/bookAdd";
+		return "/library/bookList";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
@@ -133,24 +212,10 @@ public class LibraryController {
 		
 	}
 	
-	@RequestMapping(value="/rental", method=RequestMethod.GET)
-	public String rental(){
-		return "/library/rental";
-	}
-	
-	@RequestMapping(value="/return", method=RequestMethod.GET)
-	public String returns(){
-		return "/library/return";
-	}
-	
 	/**
 	 * 가상의 로그인체크 컨트롤러
 	 * @param request
 	 * @return
 	 */
-
-	  
-
-	
 
 }
