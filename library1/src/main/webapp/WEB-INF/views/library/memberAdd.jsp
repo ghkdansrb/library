@@ -16,7 +16,7 @@
         	<div>회원이름</div>
         	<div><input type="text" class="form-control" name="memberName" id="memberName"></div>
         	<div>주소</div>
-        	<div><input type="text" class="form-control" name="memberAddr" id="memberAddr"></div>
+        	<div><input type="text" class="form-control" name="memberAddress" id="memberAddress"></div>
         	<div>전화번호</div>
         	<div><input type="text" class="form-control" name="memberPhone" id="memberPhone"></div>
 			<div>

@@ -102,4 +102,17 @@ public class LibraryDao{
 	public int totalPrice(Rental rental){
 		return sqlSession.selectOne(LIBRARY_NS+".totalPrice", rental);
 	}
+	//반납을 위한 결제
+	public int returnAndPayment(Map<String, Integer> map){
+		return sqlSession.update(LIBRARY_NS+".returnAndPayment", map);
+		
+	}
+	//반납신청후 반납일자등록
+	public int rentalstateUpdate(int bookNo){
+		return sqlSession.update(LIBRARY_NS+".rentalstateUpdate", bookNo);
+	}
+	//반납신청후 도서상태변경
+	public int bookReturnstateUpdate(int bookNo){
+		return sqlSession.update(LIBRARY_NS+".bookReturnstateUpdate", bookNo);
+	}
 }

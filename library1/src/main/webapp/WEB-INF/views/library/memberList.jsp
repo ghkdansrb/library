@@ -26,7 +26,7 @@
                     <td>${b.memberNo}</td>
                     <td>${b.memberName}</td>
                     <td>${b.memberLevel}</td>
-                    <td>${b.memberAddr}</td>
+                    <td>${b.memberAddress}</td>
                     <td>${b.memberPhone}</td>
                     <td>${b.memberDate}</td>
                 </tr>

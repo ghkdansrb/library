@@ -26,14 +26,20 @@ import com.naver.hmk.service.LibraryService;
 public class LibraryController {
 	@Autowired
 	private LibraryService libraryService;
-	//반납
+	//반납신청
 	@RequestMapping(value="/return", method=RequestMethod.GET)
 	public String returns(){
 		return "/library/return";
 	}
 	//반납신청
 	@RequestMapping(value="/return", method=RequestMethod.POST)
-	public String returns(Book book){
+	public String returns(
+			@RequestParam(value="totalPrice")int totalPrice,
+			@RequestParam(value="bookNo")int bookNo,
+			@RequestParam(value="memberNo")int memberNo
+			){
+		libraryService.bookReturn(bookNo, memberNo, totalPrice);
+		
 		return "/library/return";
 	}
 	

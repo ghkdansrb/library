@@ -3,23 +3,46 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="LibraryMapper">
-		<delete id="rental">
+
 		
-		</delete>
-		
-		<update id="returnAndPayment">
-			UPDATE payment SET
-				payment_state='결제완료',
-				payment_price=(
-												
-							)				
+		<update id="returnAndPayment"
+				parameterType="Map">
+			UPDATE 
+				payment AS PAY1
+				INNER JOIN
+				payment AS PAY2
+				ON
+				PAY1.payment_no = PAY2.payment_no
+				AND
+				PAY2.rental_no = (
+					SELECT
+						rental_no
+					FROM
+						rental
+					WHERE
+						book_no=#{bookNo}
+					AND 
+						member_no=#{memberNo}
+					AND
+						rental_endday is null
+				)
+			SET
+				PAY1.payment_state='결제완료',
+				PAY1.payment_price= #{totalPrice}
 			WHERE
-				payment_no=#{test}
-		
+				1=
+				<choose>
+					<when test="bookNo eq null and (bookNo neq ''.toString()) and memberNo eq null and (memberNo neq ''.toString())">
+					1
+					</when>
+					<otherwise>
+					0
+					</otherwise>
+				</choose>				
 		</update>
 		
-		<update id="bookrentalstateUpdate"
-				parameterType="com.naver.hmk.domain.Book">
+		<update id="bookReturnstateUpdate"
+				parameterType="int">
 		UPDATE book SET
 			book_rentalstate='대여가능'
 		WHERE
@@ -28,7 +51,7 @@
 		</update>
 		
 		<update id="rentalstateUpdate"
-				parameterType="com.naver.hmk.domain.Rental">
+				parameterType="int">
 		UPDATE rental SET
 			rental_endday=now()
 		WHERE
@@ -220,7 +243,7 @@
 				 #{memberName},
 				 #{libraryNo},
 				 #{memberLevel},
-				 #{memberAddr},
+				 #{memberAddress},
 				 #{memberPhone},
 				 now()
 				 )

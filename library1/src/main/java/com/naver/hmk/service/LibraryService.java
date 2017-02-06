@@ -153,7 +153,7 @@ public class LibraryService{
 			return paymentInsert;
 		}
 		
-	//대여검색
+	//반납신청
 	public Map<String, Object> searchRental(int bookNo){
 		Map<String, Object> map = new HashMap<String, Object>();
 		//도서 검색
@@ -169,6 +169,19 @@ public class LibraryService{
 		map.put("member", member);
 		map.put("totalPrice", totalPrice);
 		return map;
+	}
+	//반납처리
+	@Transactional
+	public int bookReturn(int bookNo, int memberNo, int totalPrice){
+		libraryDao.bookReturnstateUpdate(bookNo);
+		libraryDao.rentalstateUpdate(bookNo);
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("bookNo", bookNo);
+		map.put("memberNo", memberNo);
+		map.put("totalPrice", totalPrice);
+
+		return libraryDao.returnAndPayment(map);	
 	}
 		
 
