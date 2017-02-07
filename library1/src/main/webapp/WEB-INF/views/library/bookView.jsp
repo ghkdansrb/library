@@ -22,7 +22,7 @@
 		    <div>총대여횟수</div>
 		    <div><input type="text" class="form-control" name="bookTotalrental" value='${book.bookTotalrental}' readonly="readonly"></div>
 		    <div>대여상태</div>
-		    <div><input type="text" class="form-control" name="bookRentalstate" value='${book.bookRentalstate}'></div>
+		    <div><input type="text" class="form-control" name="bookRentalstate" value='${book.bookRentalstate}' readonly="readonly"></div>
 		    <div>등록일</div>
 		    <div><input type="text" class="form-control" name="bookDate" value='${book.bookDate}' readonly="readonly"></div>
 		
@@ -30,7 +30,8 @@
 				<input type="submit" value="수정">
     		</div>
 		</form>
-		<a href="<c:url value='/bookRemove?bookNo=${book.bookNo}'/>"><button>삭제</button></a>
+			<a href="<c:url value='/bookRemove?bookNo=${book.bookNo}'/>"><button>삭제</button></a>
+			<a href="<c:url value='/bookDiscard?bookNo=${book.bookNo}'/>"><button>폐기등록</button></a>
 
  
     

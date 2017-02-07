@@ -74,86 +74,92 @@ public class LibraryService{
 	}
 	
 	//도서리스트(페이징작업)
-		public Map<String, Object> getBookListCurrntPerPage(int currentPage){
-			//pagePerRow(보여줄행수), beginRow(비긴로우행부터 pagePerRow까지)
-			int pagePerRow = 10;
-			int beginRow=(currentPage-1)*pagePerRow;
-			
-			//totalCount (전체행수)
-			int totalRowCount = libraryDao.selectTotalBookCount();
-			
-			//lastPage
-			int lastPage = totalRowCount/pagePerRow;
-			if(totalRowCount%pagePerRow != 0) {
-				lastPage++;
-			}
-			
-			//bookList
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			map.put("beginRow", beginRow);
-			map.put("pagePerRow", pagePerRow);
-			List<Book> list = libraryDao.selectBookListPerPage(map);
-			Map<String, Object> returnMap = new HashMap<String, Object>();
-			returnMap.put("totalRowCount", totalRowCount);
-			returnMap.put("lastPage", lastPage);
-			returnMap.put("list", list);
+	public Map<String, Object> getBookListCurrntPerPage(int currentPage){
+		//pagePerRow(보여줄행수), beginRow(비긴로우행부터 pagePerRow까지)
+		int pagePerRow = 10;
+		int beginRow=(currentPage-1)*pagePerRow;
+		
+		//totalCount (전체행수)
+		int totalRowCount = libraryDao.selectTotalBookCount();
+		
+		//lastPage
+		int lastPage = totalRowCount/pagePerRow;
+		if(totalRowCount%pagePerRow != 0) {
+			lastPage++;
+		}
+		
+		//bookList
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("beginRow", beginRow);
+		map.put("pagePerRow", pagePerRow);
+		List<Book> list = libraryDao.selectBookListPerPage(map);
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("totalRowCount", totalRowCount);
+		returnMap.put("lastPage", lastPage);
+		returnMap.put("list", list);
 
-			return returnMap;
-		}
+		return returnMap;
+	}
 	// 북상세보기
-		public Book selectOneBook(int bookNo){
-			return libraryDao.selectOneBook(bookNo);
-			
-		}
+	public Book selectOneBook(int bookNo){
+		return libraryDao.selectOneBook(bookNo);
+		
+	}
 	// 도서수정하기
-		public int bookUpdate(Book book){
-			return libraryDao.bookUpdate(book);
-		}
+	public int bookUpdate(Book book){
+		return libraryDao.bookUpdate(book);
+	}
 	// 도서삭제하기
-		public int bookRemove(Book book) {
-			return libraryDao.bookRemove(book);
-		}
-		
+	public int bookRemove(Book book) {
+		return libraryDao.bookRemove(book);
+	}
+	
 	//대여를 위한 도서 검색
-		public Book searchBook(int bookNo){
-			return libraryDao.searchBook(bookNo);
-		}
+	public Book searchBook(int bookNo){
+		return libraryDao.searchBook(bookNo);
+	}
 	//대여를 위한 회원검색
-		public Member searchMember(int memberNo){
-			return libraryDao.searchMember(memberNo);
-		}
-		
+	public Member searchMember(int memberNo){
+		return libraryDao.searchMember(memberNo);
+	}
+	
 
 	//대여등록
-		@Transactional
-		public int rentalAdd(Rental rental){
-			int paymentInsert= 0;
-			//대여테이블에 등록
-			int rentalAddResult = libraryDao.rentalAdd(rental);
-			//만약 대여테이블에 등록이 성공하면
-			if(rentalAddResult>0){
-				//해당도서의 totalCount를 가져온다
-				int selectRentalCount = libraryDao.selectRentalCount(rental.getBookNo());
-				//book객체를 생성하고
-				Book book = new Book();
-				//bookNo와 totalcount(아까 select한 totalCount)를 객체에 담는다.
-				book.setBookNo(rental.getBookNo());
-				book.setBookTotalrental(selectRentalCount);
-				//도서상태를 업데이트
-				int updateResult = libraryDao.bookRentalstateUpdate(book);
-				//만약에 도서업데이트가 성공하면
-				if(updateResult >0){
-					//결제를 등록
-					paymentInsert = libraryDao.paymentInsert(rental);
-					//성공했는지 안헀는지 결과값 반환
-					return paymentInsert;
-				}
+	@Transactional
+	public int rentalAdd(Rental rental, int prepayment){
+		int paymentInsert= 0;
+		//대여테이블에 등록
+		int rentalAddResult = libraryDao.rentalAdd(rental);
+		//만약 대여테이블에 등록이 성공하면
+		if(rentalAddResult>0){
+			//해당도서의 totalCount를 가져온다
+			int selectRentalCount = libraryDao.selectRentalCount(rental.getBookNo());
+			//book객체를 생성하고
+			Book book = new Book();
+			//bookNo와 totalcount(아까 select한 totalCount)를 객체에 담는다.
+			book.setBookNo(rental.getBookNo());
+			book.setBookTotalrental(selectRentalCount);
+			//도서상태를 업데이트
+			int updateResult = libraryDao.bookRentalstateUpdate(book);
+			//만약에 도서업데이트가 성공하면
+			if(updateResult >0){
+				//결제를 등록
+				
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("memberNo", rental.getMemberNo());
+				map.put("bookNo", rental.getBookNo());
+				map.put("prepayment", prepayment);					
+				paymentInsert = libraryDao.paymentInsert(map);
+				//성공했는지 안헀는지 결과값 반환
+				return paymentInsert;
 			}
-			//실패
-			return paymentInsert;
 		}
-		
+		//실패
+		return paymentInsert;
+	}
+	
 	//반납신청
+	@Transactional
 	public Map<String, Object> searchRental(int bookNo){
 		Map<String, Object> map = new HashMap<String, Object>();
 		//도서 검색
@@ -173,17 +179,27 @@ public class LibraryService{
 	//반납처리
 	@Transactional
 	public int bookReturn(int bookNo, int memberNo, int totalPrice){
-		libraryDao.bookReturnstateUpdate(bookNo);
-		libraryDao.rentalstateUpdate(bookNo);
-		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("bookNo", bookNo);
 		map.put("memberNo", memberNo);
-		map.put("totalPrice", totalPrice);
-
-		return libraryDao.returnAndPayment(map);	
+		map.put("totalPrice", totalPrice);		
+		
+		libraryDao.returnAndPayment(map);
+		libraryDao.bookReturnstateUpdate(bookNo);
+		
+		return libraryDao.rentalstateUpdate(bookNo); 	
 	}
-		
+	//대여리스트
+	public List<Rental> rentalList(){
+		return libraryDao.rentalList();
+	}
+	//결제리스트
+	public List<Payment> paymentList(){
+		return libraryDao.paymentList();
+	}
+	//도서폐기등록을하기위한 도서상태수정
+	public int discardBookAdd(int bookNo){
+		return libraryDao.discardBookAdd(bookNo);
+	}
 
-		
 }

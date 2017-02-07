@@ -13,6 +13,13 @@ public class Book {
 	private String bookRentalstate;
 	private String bookStartday;
 	private String bookDate;
+	private String bookDeleteday;
+	public String getBookDeleteday() {
+		return bookDeleteday;
+	}
+	public void setBookDeleteday(String bookDeleteday) {
+		this.bookDeleteday = bookDeleteday;
+	}
 	public String getBookDate() {
 		return bookDate;
 	}
@@ -92,9 +99,8 @@ public class Book {
 				+ categoryName + ", bookName=" + bookName + ", bookWriter=" + bookWriter + ", bookPublisher="
 				+ bookPublisher + ", bookState=" + bookState + ", bookTotalrental=" + bookTotalrental
 				+ ", bookRentalstate=" + bookRentalstate + ", bookStartday=" + bookStartday + ", bookDate=" + bookDate
-				+ "]";
+				+ ", bookDeleteday=" + bookDeleteday + "]";
 	}
-
 	
 	
 }

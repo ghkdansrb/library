@@ -17,6 +17,7 @@
                 <th>출판사</th>
                 <th>대여상태</th>
                 <th>등록일</th>
+                <th>폐기등록일</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                     <td>${b.bookPublisher}</td>
                     <td>${b.bookRentalstate}</td>
                     <td>${b.bookDate}</td>
+                    <td>${b.bookDeleteday}</td>
                 </tr>
             </c:forEach>
         </tbody>

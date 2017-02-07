@@ -4,8 +4,9 @@ public class Rental {
 	private int rentalNo;
 	private int memberNo;
 	private int bookNo;
-	private int rentalStartday;
-	private int rentalEndday;
+	private String rentalStartday;
+	private String rentalEndday;
+
 	public int getRentalNo() {
 		return rentalNo;
 	}
@@ -24,16 +25,16 @@ public class Rental {
 	public void setBookNo(int bookNo) {
 		this.bookNo = bookNo;
 	}
-	public int getRentalStartday() {
+	public String getRentalStartday() {
 		return rentalStartday;
 	}
-	public void setRentalStartday(int rentalStartday) {
+	public void setRentalStartday(String rentalStartday) {
 		this.rentalStartday = rentalStartday;
 	}
-	public int getRentalEndday() {
+	public String getRentalEndday() {
 		return rentalEndday;
 	}
-	public void setRentalEndday(int rentalEndday) {
+	public void setRentalEndday(String rentalEndday) {
 		this.rentalEndday = rentalEndday;
 	}
 	@Override
@@ -41,5 +42,6 @@ public class Rental {
 		return "Rental [rentalNo=" + rentalNo + ", memberNo=" + memberNo + ", bookNo=" + bookNo + ", rentalStartday="
 				+ rentalStartday + ", rentalEndday=" + rentalEndday + "]";
 	}
-	
+
+
 }

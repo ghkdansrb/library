@@ -91,8 +91,8 @@ public class LibraryDao{
 		return sqlSession.selectOne(LIBRARY_NS+".selectRentalCount", bookNo);
 	}
 	//결제등록
-	public int paymentInsert(Rental rental){
-		return sqlSession.insert(LIBRARY_NS+".paymentInsert", rental);
+	public int paymentInsert(Map<String, Object> map){
+		return sqlSession.insert(LIBRARY_NS+".paymentInsert", map);
 	}
 	//대여검색
 	public Rental searchRental(int bookNo){
@@ -115,4 +115,21 @@ public class LibraryDao{
 	public int bookReturnstateUpdate(int bookNo){
 		return sqlSession.update(LIBRARY_NS+".bookReturnstateUpdate", bookNo);
 	}
+	//대여리스트
+	public List<Rental> rentalList(){
+		return sqlSession.selectList(LIBRARY_NS+".rentalList");
+	}
+	//결제리스트
+	public List<Payment> paymentList(){
+		return sqlSession.selectList(LIBRARY_NS+".paymentList");
+	}
+	//도서폐기등록을하기위한 도서상태수정
+	public int discardBookAdd(int bookNo){
+		return sqlSession.update(LIBRARY_NS+".discardBookAdd", bookNo);
+	}
+	//도서폐기등록
+	public int discardBook(){
+		return sqlSession.delete(LIBRARY_NS+".discardBook");
+	}
+	
 }

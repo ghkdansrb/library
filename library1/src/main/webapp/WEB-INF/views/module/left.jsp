@@ -14,7 +14,9 @@
         <li><a href="bookList">도서목록</a></li>
         <h4>대여/반납</h4>
         <li><a href="rentalAdd">대여신청</a></li>
+        <li><a href="rentalList">대여목록</a></li>
         <li><a href="return">반납신청</a></li>
+        <li><a href="paymentList">결제목록</a></li>
       </ul>
     </nav>
 	<!-- 사이드바 끝 -->

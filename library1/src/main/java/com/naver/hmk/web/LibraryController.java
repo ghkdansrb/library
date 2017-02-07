@@ -19,6 +19,7 @@ import com.naver.hmk.domain.Admin;
 import com.naver.hmk.domain.Book;
 import com.naver.hmk.domain.Category;
 import com.naver.hmk.domain.Member;
+import com.naver.hmk.domain.Payment;
 import com.naver.hmk.domain.Rental;
 import com.naver.hmk.service.LibraryService;
 
@@ -26,6 +27,29 @@ import com.naver.hmk.service.LibraryService;
 public class LibraryController {
 	@Autowired
 	private LibraryService libraryService;
+	
+	//폐기도서등록
+	@RequestMapping(value="/bookDiscard")
+	public String bookDiscard(
+		@RequestParam(value="bookNo") int bookNo){
+		libraryService.discardBookAdd(bookNo);
+		return "redirect:/bookList";
+	}
+
+	//결제리스트
+	@RequestMapping(value="/paymentList", method=RequestMethod.GET)
+	public String paymentList(Model model){
+		List<Payment> list = libraryService.paymentList();
+		model.addAttribute("list", list);
+		return "/library/paymentList";
+	}
+	//대여리스트
+	@RequestMapping(value="/rentalList", method=RequestMethod.GET)
+	public String rentalList(Model model){
+		List<Rental> list = libraryService.rentalList();
+		model.addAttribute("list", list);
+		return "/library/rentalList";
+	}
 	//반납신청
 	@RequestMapping(value="/return", method=RequestMethod.GET)
 	public String returns(){
@@ -40,7 +64,7 @@ public class LibraryController {
 			){
 		libraryService.bookReturn(bookNo, memberNo, totalPrice);
 		
-		return "/library/return";
+		return "redirect:/paymentList";
 	}
 	
 	//대여검색 searchRental
@@ -59,11 +83,12 @@ public class LibraryController {
 	
 	//대여등록
 	@RequestMapping(value="/rentalAdd", method=RequestMethod.POST)
-	public String rentalAdd(Rental rental){
-		int result = libraryService.rentalAdd(rental);
+	public String rentalAdd(Rental rental,
+			@RequestParam(value="prepayment") int prepayment){
+		int result = libraryService.rentalAdd(rental, prepayment);
 		System.out.println("대여등록확인"+result);
 		if(result>0){
-			return "/library/rentalList";
+			return "redirect:/rentalList";
 		}else{
 			return "/library/rentalAdd";
 		}
@@ -95,7 +120,7 @@ public class LibraryController {
 	}	
 	
 	
-	
+	//도서삭제
 	@RequestMapping(value="/bookRemove")
 	public String bookRemove(Book book){
 		int result = libraryService.bookRemove(book);
@@ -105,7 +130,7 @@ public class LibraryController {
 			return "redirect:/bookView?bookNo="+book.getBookNo();
 		}
 	}
-	
+	//도서수정
 	@RequestMapping(value="/bookModify", method=RequestMethod.POST)
 	public String bookUpdate(Book book) {
 		int result = libraryService.bookUpdate(book);
@@ -115,7 +140,7 @@ public class LibraryController {
 			return "redirect:/bookModify?bookNo="+book.getBookNo();
 		}
 	}
-	
+	//도서상세
 	@RequestMapping(value="/bookView")
 	public String bookView(Model model, 
 			@RequestParam(value="bookNo") int bookNo){
@@ -124,7 +149,7 @@ public class LibraryController {
 		return "/library/bookView";
 		
 	}
-	
+	//도서리스트
 	@RequestMapping(value="/bookList")
 	public String bookList(Model model,
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage){
@@ -137,7 +162,7 @@ public class LibraryController {
 		System.out.println("리스트오냐?"+model.toString());
 		return "/library/bookList";
 	}
-	
+	//회원리스트
 	@RequestMapping(value="/memberList")
 	public String memberList(Model model,
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage){
@@ -150,27 +175,27 @@ public class LibraryController {
 		System.out.println("리스트오냐?"+model.toString());
 		return "/library/memberList";
 	}
-	
+	//회원등록
 	@RequestMapping(value="/memberAdd" , method=RequestMethod.GET)
 	public String memberAdd(){
 			
 		return "/library/memberAdd";
 	}
-		
+	//회원등록	
 	@RequestMapping(value="/memberAdd" , method=RequestMethod.POST)
 	public String memberAdd(Member member){
 		System.out.println("회원들어오냐?"+member);
 		libraryService.MemberAdd(member);
 		return "redirect:/memberList";
 	}
-	
+	//도서등록
 	@RequestMapping(value="/bookAdd", method=RequestMethod.GET)
 	public String bookAdd(Model model){
 		List<Category> categoryList = libraryService.categoryList();
 			model.addAttribute("categoryList", categoryList);
 		return "/library/bookAdd";
 	}
-	
+	//도서등록
 	@RequestMapping(value="/bookAdd", method=RequestMethod.POST)
 	public String bookAdd(Book book, HttpSession session){
 		Map<String, Object> sessionMap = (Map<String, Object>) session.getAttribute("admin");
@@ -178,15 +203,15 @@ public class LibraryController {
 			book.setLibraryNo(sessionLibraryNo);
 			libraryService.BookAdd(book);
 			System.out.println("책들어오냐?"+book);
-		return "/library/bookList";
+		return "redirect:/bookList";
 	}
-	
+	//로그인
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login(){
 
 		return "/library/login";
 	}
-	
+	//로그인체크
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(HttpSession session, @RequestParam(value="id") String id, @RequestParam(value="password") String password){
 	    Admin admin = libraryService.loginCheck(id, password);
@@ -204,14 +229,14 @@ public class LibraryController {
 	    //일치하지 않으면 로그인페이지 재이동
 	    return "redirect:/login";
 	}
-	
+	//로그아웃
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request){
 	   request.getSession().invalidate();
 	   
 	   return "redirect:/login";
 	}
-		
+	//홈화면요청
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String home(){
 		return "/library/home";

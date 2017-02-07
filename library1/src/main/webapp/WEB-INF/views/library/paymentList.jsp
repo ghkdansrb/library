@@ -5,47 +5,37 @@
 
  <div class="w3-row w3-padding-64">
     <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal">회원목록</h1>
+      <h1 class="w3-text-teal">결제목록</h1>
 
-    <div>전체회원의 수 : ${totalRowCount}/${list.size()}</div>
+    
     <div class="container">
     <table class="table" border="1">
         <thead>
             <tr>
                 <th>no</th>
-                <th>회원이름</th>
-                <th>회원등급</th>
-                <th>회원주소</th>
-                <th>전화번호</th>
-                <th>가입날짜</th>
+                <th>회원번호</th>
+                <th>대여번호</th>
+                <th>대여가격</th>
+                <th>결제상태</th>
+                <th>선결제요금</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="b" items="${list}">
                 <tr>
+                    <td>${b.paymentNo}</td>
+                    <%-- <td><a href="<%=request.getContextPath()%>/bookView?bookNo=${b.bookNo}">${b.bookName}</a></td> --%>
                     <td>${b.memberNo}</td>
-                    <td>${b.memberName}</td>
-                    <td>${b.memberLevel}</td>
-                    <td>${b.memberAddress}</td>
-                    <td>${b.memberPhone}</td>
-                    <td>${b.memberDate}</td>
+                    <td>${b.rentalNo}</td>
+                    <td>${b.paymentPrice}</td>
+                    <td>${b.paymentState}</td>
+                    <td>${b.prepayment}</td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
  
-    <div>
-        <a href="<%=request.getContextPath()%>memberAdd">회원등록</a>
-    </div>
-    <div>
-        <c:if test="${currentPage>1}">
-            <a href="<c:url value='/memberList?currentPage=${currentPage-1}'/>">이전</a>
-        </c:if>
-        <c:if test="${currentPage < lastPage}"> 
-            <a href="<c:url value='/memberList?currentPage=${currentPage+1}'/>">다음</a>
-        </c:if>
- 
-    </div>
+
     </div>
      </div>
     <div class="w3-third w3-container">

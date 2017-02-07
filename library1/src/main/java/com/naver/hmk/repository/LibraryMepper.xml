@@ -3,7 +3,44 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="LibraryMapper">
+		
+		<delete id="discardBook">
+			DELETE FROM book
+			WHERE
+				date_add(book_deleteday, interval +1 year) &lt; now()
+		</delete>
+		
+		<update id="discardBookAdd" parameterType="int">
+			UPDATE book SET
+				book_rentalstate='폐기도서',
+				book_deleteday=now()
+			WHERE
+				book_no=#{bookNo}
+		</update>
+		
+		<select id="paymentList" resultType="com.naver.hmk.domain.Payment">
+			SELECT 
+				payment_no,
+				member_no,
+				rental_no,
+				payment_price,
+				payment_state,
+				prepayment
+			FROM 
+				payment
+			
+		</select>
 
+		<select id="rentalList" resultType="com.naver.hmk.domain.Rental">
+			SELECT 
+				rental_no,
+				member_no,
+				book_no,
+				rental_startday,
+				rental_endday
+			FROM 
+				rental
+		</select>
 		
 		<update id="returnAndPayment"
 				parameterType="Map">
@@ -29,16 +66,7 @@
 			SET
 				PAY1.payment_state='결제완료',
 				PAY1.payment_price= #{totalPrice}
-			WHERE
-				1=
-				<choose>
-					<when test="bookNo eq null and (bookNo neq ''.toString()) and memberNo eq null and (memberNo neq ''.toString())">
-					1
-					</when>
-					<otherwise>
-					0
-					</otherwise>
-				</choose>				
+					
 		</update>
 		
 		<update id="bookReturnstateUpdate"
@@ -60,10 +88,11 @@
 		</update>
 		
 		<insert id="paymentInsert" 
-				parameterType="com.naver.hmk.domain.Rental">
+				parameterType="Map">
 		INSERT INTO payment(
 			member_no,
-			rental_no
+			rental_no,
+			prepayment
 			)
 		VALUES(
 			#{memberNo},
@@ -78,7 +107,8 @@
 					book_no = #{bookNo}
 					AND
 					rental_endday is null
-				)
+				),
+			#{prepayment}
 			)
 		</insert>
 		
@@ -166,7 +196,8 @@
 			book_name,
 			book_publisher,
 			book_rentalstate,
-			book_date
+			book_date,
+			book_deleteday
 		FROM book
 			ORDER BY book_date DESC
 			LIMIT #{beginRow},#{pagePerRow}
@@ -323,6 +354,12 @@
 		       		(
 			       SELECT DATEDIFF(now(), rental_startday)  
 			       FROM rental
+			       WHERE rental_no=#{rentalNo}
+			       )
+			       -
+			       (
+			       SELECT prepayment
+			       FROM payment
 			       WHERE rental_no=#{rentalNo}
 			       )
 			   )

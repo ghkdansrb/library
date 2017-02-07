@@ -6,6 +6,13 @@ public class Payment {
 	private int rentalNo;
 	private int paymentPrice;
 	private String paymentState;
+	private int prepayment;
+	public int getPrepayment() {
+		return prepayment;
+	}
+	public void setPrepayment(int prepayment) {
+		this.prepayment = prepayment;
+	}
 	public int getPaymentNo() {
 		return paymentNo;
 	}
@@ -39,8 +46,8 @@ public class Payment {
 	@Override
 	public String toString() {
 		return "Payment [paymentNo=" + paymentNo + ", memberNo=" + memberNo + ", rentalNo=" + rentalNo
-				+ ", paymentPrice=" + paymentPrice + ", paymentState=" + paymentState + "]";
+				+ ", paymentPrice=" + paymentPrice + ", paymentState=" + paymentState + ", prepayment=" + prepayment
+				+ "]";
 	}
-
 
 }

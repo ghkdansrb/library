@@ -67,7 +67,9 @@ $(document).on('click', '#memberBtn', function(){
 	        	<div><input type="text" id="memberAddr" class="form-control" name="memberAddr"></div>
 	        	<div>회원전화번호</div>
 	        	<div><input type="text" id="memberPhone" class="form-control" name="memberPhone"></div>
-	
+	        	
+	        	<h1>선결제</h1>
+				<div><input type="text" id="prepayment" class="form-control" name="prepayment"></div>
 			    <div align="center">
 			    	<input type="submit" value="대여신청">
 			    </div>

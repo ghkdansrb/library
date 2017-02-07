@@ -5,9 +5,12 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	 xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
@@ -22,8 +25,8 @@
 	           <mvc:mapping path="/admin_main"/>
 	           <!-- 여러개 컨트롤러 추가 가능 -->
 
-	                <mvc:mapping path="/hmk/"/>
-
+	                <mvc:mapping path="/*"/>
+					<mvc:exclude-mapping path="/login"/>
 	           <!-- 로그인체크 인터셉터 클래스 -->
 	           <bean class="com.spring.interceptor.Interceptor"/>
 	        </mvc:interceptor>
@@ -73,4 +76,7 @@
 	
 	<!-- 트랙잭션 관련 빈을 자동 등록 -->
 	<tx:annotation-driven />
+	
+	<task:annotation-driven/>
+
 </beans>
